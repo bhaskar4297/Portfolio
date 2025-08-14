@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bhaskar Sinha – Portfolio</title>
+  <meta name="description" content="Portfolio website for Bhaskar Sinha – Data Engineer" />
+  <style>
+    /* -------- Root & Theme -------- */
+    :root{
+      --bg: #0b0d12;
+      --surface: #111521;
+      --muted: #9aa3b2;
+      --text: #e8edf5;
+      --brand: #6aa9ff;
+      --ring: rgba(106,169,255,.35);
+      --ok: #7bd88f;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --maxw: 1080px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f7f9fc; --surface:#ffffff; --text:#10131a; --muted:#4b5565; --brand:#2f6ee9; --ring: rgba(47,110,233,.25);}  
+      .hero::before{ opacity:.07; }
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{opacity:.9}
+
+    /* -------- Layout -------- */
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:50;background:rgba(11,13,18,.65);backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
+    .nav .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .nav .brand .dot{width:10px;height:10px;border-radius:99px;background:conic-gradient(from 180deg, var(--brand), #9d79ff);box-shadow:0 0 0 6px var(--ring)}
+    .nav a{color:var(--text)}
+    .nav .links{display:flex;gap:16px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--brand);color:#fff;padding:10px 14px;border-radius:12px;font-weight:600;box-shadow:var(--shadow);border:0}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text);box-shadow:none}
+
+    /* -------- Hero -------- */
+    .hero{position:relative}
+    .hero::before{content:"";position:absolute;inset:-30px 0 0;z-index:-1;background:radial-gradient(600px 250px at 10% 20%, var(--ring), transparent 60%), radial-gradient(400px 200px at 80% 0%, rgba(157,121,255,.25), transparent 60%)}
+    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:60px 0 40px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:var(--muted);font-size:.9rem}
+    .chip .online{width:8px;height:8px;border-radius:99px;background:var(--ok);box-shadow:0 0 0 6px rgba(123,216,143,.15)}
+    h1{font-size:clamp(28px, 3.5vw, 46px);line-height:1.15;margin:12px 0}
+    .sub{font-size:clamp(16px, 1.6vw, 19px);color:var(--muted);max-width:62ch}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .statbar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+    .stat{background:var(--surface);border-radius:16px;padding:16px;border:1px solid rgba(255,255,255,.06)}
+    .stat .big{font-size:clamp(20px,3vw,28px);font-weight:800}
+    .stat .lbl{color:var(--muted);font-size:.9rem}
+
+    /* -------- Sections -------- */
+    section{padding:54px 0}
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .section-title h2{font-size:clamp(22px, 2.5vw, 30px);margin:0}
+    .grid{display:grid;grid-template-columns:repeat(12, 1fr);gap:16px}
+
+    .card{grid-column:span 12;background:var(--surface);border-radius:var(--radius);padding:18px;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)}
+
+    /* Experience Timeline */
+    .timeline{position:relative;margin:6px 0 0 0}
+    .timeline::before{content:"";position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand),transparent)}
+    .item{display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0}
+    .item .dot{width:12px;height:12px;border-radius:99px;margin-top:6px;background:var(--brand);box-shadow:0 0 0 6px var(--ring)}
+    .item h3{margin:0 0 4px}
+    .item .meta{color:var(--muted);font-size:.95rem}
+    .item p{margin:8px 0 0}
+
+    /* Projects */
+    .projects{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .project{grid-column:span 12;background:linear-gradient(180deg, rgba(255,255,255,.04), transparent), var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:18px}
+    .project h3{margin:0}
+    .project .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+    .tag{padding:6px 10px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:var(--muted);font-size:.9rem}
+
+    /* Skills */
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .skill{background:var(--surface);padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.06)}
+    .skill b{display:block;margin-bottom:6px}
+    .bar{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--brand),#9d79ff)}
+    .barwrap{height:8px;border-radius:999px;background:rgba(255,255,255,.08)}
+
+    /* Contact */
+    .contact{display:grid;grid-template-columns:1fr;gap:14px}
+    .contact a{display:flex;align-items:center;gap:10px}
+    .contact .hint{color:var(--muted)}
+
+    /* Footer */
+    footer{padding:26px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
+
+    /* Responsive */
+    @media (min-width: 740px){
+      .hero-inner{grid-template-columns:1.2fr .8fr}
+      .project{grid-column:span 6}
+    }
+    @media (min-width: 980px){
+      .card{grid-column:span 6}
+    }
+  </style>
+</head>
+<body>
+  <!-- ====== Header ====== -->
+  <header>
+    <div class="wrap nav">
+      <a href="#top" class="brand" aria-label="Home">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Bhaskar Sinha</span>
+      </a>
+      <nav class="links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ====== Hero ====== -->
+  <main id="top" class="wrap hero">
+    <div class="hero-inner">
+      <div>
+        <span class="chip"><span class="online"></span> Available for new opportunities</span>
+        <h1>Hi, I'm <span style="color:var(--brand)">Bhaskar</span> — Data Engineer.</h1>
+        <p class="sub">Data engineer turning messy data into reliable, usable insights. 4+ years building cloud ETL pipelines, improving data quality, and enabling data-driven decisions.</p>
+        <div class="cta">
+          <a class="btn" href="#projects">See my work</a>
+          <a class="btn ghost" href="mailto:bhaskarsinhauk@gmail.com">Email me</a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/bhaskarsinha4297/">LinkedIn</a>
+          <a class="btn ghost" href="https://github.com/bhaskar4297">GitHub</a>
+        </div>
+        <div class="statbar">
+          <div class="stat"><div class="big">4+ yrs</div><div class="lbl">Experience</div></div>
+          <div class="stat"><div class="big">40% fewer</div><div class="lbl">reporting errors</div></div>
+          <div class="stat"><div class="big">Glasgow, UK</div><div class="lbl">Based in</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="section-title"><h2>Quick Profile</h2></div>
+          <ul>
+            <li><b>Current:</b> MSc Data Analytics Graduate (2024) @ University of Strathclyde</li>
+            <li><b>Previously:</b> Associate Analyst (Data Analyst) at Panigrahi’s Civil Engineering Foundation; Software Engineer at Pylons Technology PVT. LTD.</li>
+            <li><b>Education:</b> MSc Data Analytics (Strathclyde, 2023–2024); BE Electrical & Electronics (CSVTU, 2014–2018)</li>
+            <li><b>Interests:</b> Data engineering, cloud platforms, geospatial data, analytics & dashboards</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====== About ====== -->
+  <section id="about" class="wrap">
+    <div class="section-title">
+      <h2>About</h2>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+    <div class="grid">
+      <article class="card" style="grid-column:span 12">
+        <p>I’m a data engineer who enjoys transforming raw, messy data into clear, actionable insights. I’ve delivered cloud-based pipelines and automated validation to ensure reliable data reaches the people who need it, when they need it.</p>
+        <p>Across roles in education technology and engineering services, I’ve built ETL processes with Python and SQL, improved data quality and reporting accuracy, and collaborated closely with stakeholders. I recently completed an MSc in Data Analytics at the University of Strathclyde and I’m excited to apply modern data tooling to solve real problems.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ====== Experience ====== -->
+  <section id="experience" class="wrap">
+    <div class="section-title"><h2>Experience</h2></div>
+    <div class="card">
+      <div class="timeline" aria-label="Experience timeline">
+        <div class="item">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h3>Associate Analyst (Data Analyst) · Panigrahi’s Civil Engineering Foundation</h3>
+            <div class="meta">Feb 2020 – Feb 2023 · Durg, India</div>
+            <p>Designed and automated ETL pipelines and BI reporting to support student performance and institutional decision‑making.</p>
+            <ul>
+              <li>Built scalable ETL with Python & MySQL, improving data processing efficiency by 15%.</li>
+              <li>Developed and maintained Power BI dashboards; improved performance tracking by 30%.</li>
+              <li>Implemented SQL‑based validation and quality checks, reducing reporting errors by 40%.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="item">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h3>Software Engineer · Pylons Technology PVT. LTD.</h3>
+            <div class="meta">Jan 2019 – Feb 2020 · Durg, India</div>
+            <p>Contributed to ERP platforms across API development, CI/CD, and production support.</p>
+            <ul>
+              <li>Enhanced API performance by ~35% using Node.js, Express.js, and MySQL for CoreFab & Institute ERP.</li>
+              <li>Set up Jenkins CI/CD pipelines to speed up deployments by ~30% in Agile (Scrum) workflows.</li>
+              <li>Collaborated with QA and users to deliver fabrication workflow modules, cutting manual entry by 25%.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Projects ====== -->
+  <section id="projects" class="wrap">
+    <div class="section-title"><h2>Projects</h2></div>
+    <div class="projects">
+      <article class="project">
+        <h3>Overpass Microservice Architecture (Freelance, 2024)</h3>
+        <p>Designed and deployed a scalable geospatial microservice for LondonOverpass on AWS (Elastic Beanstalk, RDS/PostgreSQL+PostGIS). Extracted OSM highway data with osmium, optimized spatial SQL, enforced JSON schema validation, integrated with Django, and monitored via CloudWatch with IAM‑based security.</p>
+        <div class="tags">
+          <span class="tag">AWS</span>
+          <span class="tag">PostGIS</span>
+          <span class="tag">Microservices</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/Overpass-Microservice-Architecture-Design-Freelance-2024-">View project →</a></p>
+      </article>
+      <article class="project">
+        <h3>Tokyo Olympics Data Analytics (2021)</h3>
+        <p>Built end‑to‑end Azure pipelines (ADF → Databricks/Spark) on 12k+ records from APIs/Kaggle; collaborated to deploy ML models for outcome prediction; automated prep workflows reduced preprocessing time by ~40%.</p>
+        <div class="tags">
+          <span class="tag">Azure ADF</span>
+          <span class="tag">Databricks & Spark</span>
+          <span class="tag">ML Ops</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/Olympic-analytics-Azure_Project">View project →</a></p>
+      </article>
+      <article class="project">
+        <h3>Spotify Classification Problem</h3>
+        <p>Forecasted song popularity and genre on Spotify using ML on 13 features; achieved 41.17% accuracy in a Kaggle competition.</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">scikit‑learn</span>
+          <span class="tag">Kaggle</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/Machine-Learning">View project →</a></p>
+      </article>
+      <article class="project">
+        <h3>Ersan Duran (IT Consultant) – Bitcoin Price Prediction</h3>
+        <p>Predicted Bitcoin price using time‑series analysis and regression; emphasized data exploration, preprocessing, and careful model tuning with full justification.</p>
+        <div class="tags">
+          <span class="tag">Time Series</span>
+          <span class="tag">Regression</span>
+          <span class="tag">Python</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/ML-Predicting-Bitcoin-Price">View project →</a></p>
+      </article>
+      <article class="project">
+        <h3>Experian – Reverse Engineering</h3>
+        <p>Worked with Experian to predict salaries from net to gross, incorporating tax brackets, National Insurance, and other statutory deductions.</p>
+        <div class="tags">
+          <span class="tag">Finance</span>
+          <span class="tag">Tax</span>
+          <span class="tag">Modelling</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/University-of-strathclyde-Data-analytics/tree/main/Data%20analytics%20in%20Practice">View project →</a></p>
+      </article>
+      
+    </div>
+  </section>
+
+  <!-- ====== Skills ====== -->
+  <section id="skills" class="wrap">
+    <div class="section-title"><h2>Skills</h2></div>
+    <div class="grid">
+      <div class="card" style="grid-column:span 12">
+        <div class="skills">
+          <div class="skill"><b>Data Engineering · Python · SQL · ETL</b><div class="barwrap"><div class="bar" style="width:90%"></div></div></div>
+          <div class="skill"><b>Cloud & Big Data · AWS · Azure · Databricks · Spark</b><div class="barwrap"><div class="bar" style="width:85%"></div></div></div>
+          <div class="skill"><b>BI & Analytics · Power BI · Statistical & Predictive Modelling</b><div class="barwrap"><div class="bar" style="width:80%"></div></div></div>
+          <div class="skill"><b>DevOps & Tools · Jenkins · Docker · Git · Airflow</b><div class="barwrap"><div class="bar" style="width:75%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Contact ====== -->
+  <section id="contact" class="wrap">
+    <div class="section-title"><h2>Contact</h2></div>
+    <div class="grid">
+      <div class="card" style="grid-column:span 12">
+        <div class="contact">
+          <p class="hint">Prefer email? <a href="mailto:bhaskarsinhauk@gmail.com">bhaskarsinhauk@gmail.com</a></p>
+          <a href="mailto:bhaskarsinhauk@gmail.com?subject=Hello%20Bhaskar" class="btn" style="width:max-content">📧 Email</a>
+          <a href="https://www.linkedin.com/in/bhaskarsinha4297/" class="btn ghost" style="width:max-content">💼 LinkedIn</a>
+          <a href="https://github.com/bhaskar4297" class="btn ghost" style="width:max-content">💻 GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">© <span id="y"></span> Bhaskar Sinha. Built with HTML & CSS.</div>
+  </footer>
+
+  <script>
+    // Tiny inline script just to set the current year in the footer. Remove if you prefer 100% no-JS.
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
