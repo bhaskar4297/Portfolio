@@ -8,49 +8,44 @@
   <style>
     /* -------- Root & Theme -------- */
     :root{
-      --bg: #0b0d12;
-      --surface: #111521;
-      --muted: #9aa3b2;
-      --text: #e8edf5;
-      --brand: #6aa9ff;
-      --ring: rgba(106,169,255,.35);
-      --ok: #7bd88f;
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --maxw: 1080px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{ --bg:#d3e0f5; --surface:#ffffff; --text:#10131a; --muted:#4b5565; --brand:#2f6ee9; --ring: rgba(47,110,233,.25);}  
-      .hero::before{ opacity:.07; }
+      --bg:#eaf4ff;          /* light blue */
+      --surface:#ffffff;
+      --text:#0d1b2a;
+      --muted:#4b5d73;
+      --brand:#2f6ee9;
+      --ring:rgba(47,110,233,.25);
+      --ok:#2ecc71;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.10);
+      --maxw:1080px;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
+    body{margin:0;background:linear-gradient(180deg,#eaf4ff,#cfe3ff);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
     a{color:var(--brand);text-decoration:none}
     a:hover{opacity:.9}
 
     /* -------- Layout -------- */
     .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-    header{position:sticky;top:0;z-index:50;background:rgba(11,13,18,.65);backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.7);backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
     .nav{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
     .nav .brand{display:flex;align-items:center;gap:10px;font-weight:700}
     .nav .brand .dot{width:10px;height:10px;border-radius:99px;background:conic-gradient(from 180deg, var(--brand), #9d79ff);box-shadow:0 0 0 6px var(--ring)}
     .nav a{color:var(--text)}
-    .nav .links{display:flex;gap:16px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--brand);color:#fff;padding:10px 14px;border-radius:12px;font-weight:600;box-shadow:var(--shadow);border:0}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text);box-shadow:none}
+    .nav .links{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--brand);color:#fff;padding:8px 12px;border-radius:12px;font-weight:600;box-shadow:var(--shadow);border:0}
+    .btn.ghost{background:transparent;border:1px solid var(--brand);color:var(--brand);box-shadow:none}
 
     /* -------- Hero -------- */
     .hero{position:relative}
-    .hero::before{content:"";position:absolute;inset:-30px 0 0;z-index:-1;background:radial-gradient(600px 250px at 10% 20%, var(--ring), transparent 60%), radial-gradient(400px 200px at 80% 0%, rgba(157,121,255,.25), transparent 60%)}
     .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:60px 0 40px}
-    .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:var(--muted);font-size:.9rem}
-    .chip .online{width:8px;height:8px;border-radius:99px;background:var(--ok);box-shadow:0 0 0 6px rgba(123,216,143,.15)}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid rgba(0,0,0,.12);border-radius:999px;color:var(--muted);font-size:.9rem}
+    .chip .online{width:8px;height:8px;border-radius:99px;background:var(--ok);box-shadow:0 0 0 6px rgba(46,204,113,.15)}
     h1{font-size:clamp(28px, 3.5vw, 46px);line-height:1.15;margin:12px 0}
     .sub{font-size:clamp(16px, 1.6vw, 19px);color:var(--muted);max-width:62ch}
     .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
     .statbar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
-    .stat{background:var(--surface);border-radius:16px;padding:16px;border:1px solid rgba(255,255,255,.06)}
+    .stat{background:var(--surface);border-radius:16px;padding:16px;border:1px solid rgba(0,0,0,.06)}
     .stat .big{font-size:clamp(20px,3vw,28px);font-weight:800}
     .stat .lbl{color:var(--muted);font-size:.9rem}
 
@@ -60,11 +55,11 @@
     .section-title h2{font-size:clamp(22px, 2.5vw, 30px);margin:0}
     .grid{display:grid;grid-template-columns:repeat(12, 1fr);gap:16px}
 
-    .card{grid-column:span 12;background:var(--surface);border-radius:var(--radius);padding:18px;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)}
+    .card{grid-column:span 12;background:var(--surface);border-radius:var(--radius);padding:18px;border:1px solid rgba(0,0,0,.06);box-shadow:var(--shadow)}
 
     /* Experience Timeline */
     .timeline{position:relative;margin:6px 0 0 0}
-    .timeline::before{content:\"\";position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand),transparent)}
+    .timeline::before{content:"";position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand),transparent)}
     .item{display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0}
     .item .dot{width:12px;height:12px;border-radius:99px;margin-top:6px;background:var(--brand);box-shadow:0 0 0 6px var(--ring)}
     .item h3{margin:0 0 4px}
@@ -73,17 +68,17 @@
 
     /* Projects */
     .projects{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .project{grid-column:span 12;background:linear-gradient(180deg, rgba(255,255,255,.04), transparent), var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:18px}
+    .project{grid-column:span 12;background:var(--surface);border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:18px}
     .project h3{margin:0}
     .project .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-    .tag{padding:6px 10px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:var(--muted);font-size:.9rem}
+    .tag{padding:6px 10px;border:1px solid rgba(0,0,0,.12);border-radius:999px;color:var(--muted);font-size:.9rem}
 
     /* Skills */
     .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-    .skill{background:var(--surface);padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.06)}
+    .skill{background:var(--surface);padding:14px;border-radius:14px;border:1px solid rgba(0,0,0,.06)}
     .skill b{display:block;margin-bottom:6px}
     .bar{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--brand),#9d79ff)}
-    .barwrap{height:8px;border-radius:999px;background:rgba(255,255,255,.08)}
+    .barwrap{height:8px;border-radius:999px;background:rgba(0,0,0,.08)}
 
     /* Contact */
     .contact{display:grid;grid-template-columns:1fr;gap:14px}
@@ -91,7 +86,7 @@
     .contact .hint{color:var(--muted)}
 
     /* Footer */
-    footer{padding:26px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
+    footer{padding:26px 0;color:var(--muted);border-top:1px solid rgba(0,0,0,.06);text-align:center}
 
     /* Responsive */
     @media (min-width: 740px){
@@ -117,8 +112,8 @@
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
-        <a class="btn ghost" href="./BHASKAR_SINHA_DE_2025.pdf" target="_blank" download>
-    📄 Resume
+        <a href="https://github.com/bhaskar4297">GitHub</a>
+        <a class="btn ghost" href="./BHASKAR_SINHA_DE_2025.pdf" target="_blank" download>📄 Résumé</a>
       </nav>
     </div>
   </header>
@@ -180,11 +175,11 @@
           <div>
             <h3>Associate Analyst (Data Analyst) · Panigrahi’s Civil Engineering Foundation</h3>
             <div class="meta">Feb 2020 – Feb 2023 · Durg, India</div>
-            <p>Designed and automated ETL pipelines and BI reporting to support student performance and institutional decision‑making.</p>
+            <p>Designed and automated ETL pipelines and BI reporting to support student performance and institutional decision-making.</p>
             <ul>
               <li>Built scalable ETL with Python & MySQL, improving data processing efficiency by 15%.</li>
               <li>Developed and maintained Power BI dashboards; improved performance tracking by 30%.</li>
-              <li>Implemented SQL‑based validation and quality checks, reducing reporting errors by 40%.</li>
+              <li>Implemented SQL-based validation and quality checks, reducing reporting errors by 40%.</li>
             </ul>
           </div>
         </div>
@@ -210,8 +205,28 @@
     <div class="section-title"><h2>Projects</h2></div>
     <div class="projects">
       <article class="project">
+        <h3>Kafka-Based Stock Market Streaming & Analytics Pipeline</h3>
+        <p>Built real-time stock market pipeline using Kafka, Spark, and AWS; ingested, processed, and analyzed live trade data to power dashboards and alerts.</p>
+        <div class="tags">
+          <span class="tag">Kafka</span>
+          <span class="tag">Spark</span>
+          <span class="tag">AWS</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/Kafka-Based-Stock-Market-Streaming-and-Analytics-Pipeline">View project →</a></p>
+      </article>
+      <article class="project">
+        <h3>Airflow-Orchestrated Twitter ETL on AWS</h3>
+        <p>Automated ETL for Twitter data using Airflow; extracted tweets, stored in S3, processed with Spark, and loaded into Redshift for analytics.</p>
+        <div class="tags">
+          <span class="tag">Airflow</span>
+          <span class="tag">AWS</span>
+          <span class="tag">ETL</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/twitter-airflow-data-engineering-project">View project →</a></p>
+      </article>
+      <article class="project">
         <h3>Overpass Microservice Architecture (Freelance, 2024)</h3>
-        <p>Designed and deployed a scalable geospatial microservice for LondonOverpass on AWS (Elastic Beanstalk, RDS/PostgreSQL+PostGIS). Extracted OSM highway data with osmium, optimized spatial SQL, enforced JSON schema validation, integrated with Django, and monitored via CloudWatch with IAM‑based security.</p>
+        <p>Designed and deployed a scalable geospatial microservice for LondonOverpass on AWS (Elastic Beanstalk, RDS/PostgreSQL+PostGIS).</p>
         <div class="tags">
           <span class="tag">AWS</span>
           <span class="tag">PostGIS</span>
@@ -221,11 +236,11 @@
       </article>
       <article class="project">
         <h3>Tokyo Olympics Data Analytics (2021)</h3>
-        <p>Built end‑to‑end Azure pipelines (ADF → Databricks/Spark) on 12k+ records from APIs/Kaggle; collaborated to deploy ML models for outcome prediction; automated prep workflows reduced preprocessing time by ~40%.</p>
+        <p>Built end-to-end Azure pipelines (ADF → Databricks/Spark) on 12k+ records; automated prep workflows reduced preprocessing time by ~40%.</p>
         <div class="tags">
-          <span class="tag">Azure ADF</span>
-          <span class="tag">Databricks & Spark</span>
-          <span class="tag">ML Ops</span>
+          <span class="tag">Azure</span>
+          <span class="tag">Databricks</span>
+          <span class="tag">Spark</span>
         </div>
         <p><a href="https://github.com/bhaskar4297/Olympic-analytics-Azure_Project">View project →</a></p>
       </article>
@@ -234,14 +249,14 @@
         <p>Forecasted song popularity and genre on Spotify using ML on 13 features; achieved 41.17% accuracy in a Kaggle competition.</p>
         <div class="tags">
           <span class="tag">Python</span>
-          <span class="tag">scikit‑learn</span>
+          <span class="tag">scikit-learn</span>
           <span class="tag">Kaggle</span>
         </div>
         <p><a href="https://github.com/bhaskar4297/Machine-Learning">View project →</a></p>
       </article>
       <article class="project">
-        <h3>Ersan Duran (IT Consultant) – Bitcoin Price Prediction</h3>
-        <p>Predicted Bitcoin price using time‑series analysis and regression; emphasized data exploration, preprocessing, and careful model tuning with full justification.</p>
+        <h3>Ersan Duran – Bitcoin Price Prediction</h3>
+        <p>Predicted Bitcoin price using time-series analysis and regression; emphasized data exploration, preprocessing, and careful model tuning.</p>
         <div class="tags">
           <span class="tag">Time Series</span>
           <span class="tag">Regression</span>
@@ -259,33 +274,6 @@
         </div>
         <p><a href="https://github.com/bhaskar4297/University-of-strathclyde-Data-analytics/tree/main/Data%20analytics%20in%20Practice">View project →</a></p>
       </article>
-
-      <!-- New Projects Added -->
-      <article class="project">
-        <h3>Kafka-Based Stock Market Streaming & Analytics Pipeline</h3>
-        <p>Built a real-time pipeline on AWS EC2 using Apache Kafka to ingest market data, persisted to S3, and queried with AWS Glue/Athena for downstream analytics and dashboards. Included schema registry, partitions for throughput, and consumer groups for scalable processing.</p>
-        <div class="tags">
-          <span class="tag">Kafka</span>
-          <span class="tag">AWS</span>
-          <span class="tag">Athena</span>
-          <span class="tag">Glue</span>
-          <span class="tag">S3</span>
-        </div>
-        <p><a href="https://github.com/bhaskar4297/Kafka-Based-Stock-Market-Streaming-and-Analytics-Pipeline">View project →</a></p>
-      </article>
-
-      <article class="project">
-        <h3>Airflow-Orchestrated Twitter ETL on AWS</h3>
-        <p>Automated daily Twitter data ingestion and transformation with Apache Airflow DAGs, featuring retries, logging, and monitoring. Landed data on S3, transformed with Python/SQL tasks, and exposed insights for BI tools.</p>
-        <div class="tags">
-          <span class="tag">Airflow</span>
-          <span class="tag">AWS</span>
-          <span class="tag">ETL</span>
-          <span class="tag">Twitter API</span>
-        </div>
-        <p><a href="https://github.com/bhaskar4297/twitter-airflow-data-engineering-project">View project →</a></p>
-      </article>
-
     </div>
   </section>
 
@@ -314,7 +302,6 @@
           <a href="mailto:bhaskarsinhauk@gmail.com?subject=Hello%20Bhaskar" class="btn" style="width:max-content">📧 Email</a>
           <a href="https://www.linkedin.com/in/bhaskarsinha4297/" class="btn ghost" style="width:max-content">💼 LinkedIn</a>
           <a href="https://github.com/bhaskar4297" class="btn ghost" style="width:max-content">💻 GitHub</a>
-          <a class="btn ghost" href="BHASKAR_SINHA_DE_2025.pdf" target="_blank">📄 Résumé</a>
         </div>
       </div>
     </div>
