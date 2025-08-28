@@ -64,7 +64,7 @@
 
     /* Experience Timeline */
     .timeline{position:relative;margin:6px 0 0 0}
-    .timeline::before{content:"";position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand),transparent)}
+    .timeline::before{content:\"\";position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand),transparent)}
     .item{display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0}
     .item .dot{width:12px;height:12px;border-radius:99px;margin-top:6px;background:var(--brand);box-shadow:0 0 0 6px var(--ring)}
     .item h3{margin:0 0 4px}
@@ -117,6 +117,7 @@
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
+        <a class="btn ghost" href="BHASKAR_SINHA_DE_2025.docx" download>Download Résumé</a>
       </nav>
     </div>
   </header>
@@ -257,7 +258,33 @@
         </div>
         <p><a href="https://github.com/bhaskar4297/University-of-strathclyde-Data-analytics/tree/main/Data%20analytics%20in%20Practice">View project →</a></p>
       </article>
-      
+
+      <!-- New Projects Added -->
+      <article class="project">
+        <h3>Kafka-Based Stock Market Streaming & Analytics Pipeline</h3>
+        <p>Built a real-time pipeline on AWS EC2 using Apache Kafka to ingest market data, persisted to S3, and queried with AWS Glue/Athena for downstream analytics and dashboards. Included schema registry, partitions for throughput, and consumer groups for scalable processing.</p>
+        <div class="tags">
+          <span class="tag">Kafka</span>
+          <span class="tag">AWS</span>
+          <span class="tag">Athena</span>
+          <span class="tag">Glue</span>
+          <span class="tag">S3</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/Kafka-Based-Stock-Market-Streaming-and-Analytics-Pipeline">View project →</a></p>
+      </article>
+
+      <article class="project">
+        <h3>Airflow-Orchestrated Twitter ETL on AWS</h3>
+        <p>Automated daily Twitter data ingestion and transformation with Apache Airflow DAGs, featuring retries, logging, and monitoring. Landed data on S3, transformed with Python/SQL tasks, and exposed insights for BI tools.</p>
+        <div class="tags">
+          <span class="tag">Airflow</span>
+          <span class="tag">AWS</span>
+          <span class="tag">ETL</span>
+          <span class="tag">Twitter API</span>
+        </div>
+        <p><a href="https://github.com/bhaskar4297/twitter-airflow-data-engineering-project">View project →</a></p>
+      </article>
+
     </div>
   </section>
 
@@ -286,6 +313,7 @@
           <a href="mailto:bhaskarsinhauk@gmail.com?subject=Hello%20Bhaskar" class="btn" style="width:max-content">📧 Email</a>
           <a href="https://www.linkedin.com/in/bhaskarsinha4297/" class="btn ghost" style="width:max-content">💼 LinkedIn</a>
           <a href="https://github.com/bhaskar4297" class="btn ghost" style="width:max-content">💻 GitHub</a>
+          <a href="BHASKAR_SINHA_DE_2025.docx" class="btn ghost" style="width:max-content" download>📄 Résumé (DOCX)</a>
         </div>
       </div>
     </div>
@@ -296,7 +324,6 @@
   </footer>
 
   <script>
-    // Tiny inline script just to set the current year in the footer. Remove if you prefer 100% no-JS.
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
