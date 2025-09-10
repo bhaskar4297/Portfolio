@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bhaskar Sinha — Data Engineer</title>
   <meta name="description" content="Bhaskar Sinha · Data Engineer · Cloud ETL · Kafka · Spark · Azure · AWS" />
+
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
   <style>
     :root{
       --bg:#ffffff;
@@ -19,37 +23,64 @@
       --radius:18px;
       --shadow:0 10px 30px rgba(2,6,23,.08);
       --maxw:1200px;
+      --footer-h:96px;          /* fixed footer height */
+      --nav-h:66px;             /* sticky header height (approx) */
+      --footer-bg:#0f2531;      /* footer dark */
+      --footer-fg:#e9f2f8;      /* footer text */
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
       background:linear-gradient(180deg,#f8fbff 0%,#f2f7ff 100%);
       color:var(--t);
-      font:16px/1.7 Poppins,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif
+      font:16px/1.7 Poppins,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+      padding-bottom:var(--footer-h); /* prevent content from being hidden under fixed footer */
     }
     a{color:var(--brand);text-decoration:none}
     a:hover{opacity:.9}
 
-    /* Header */
+    /* Header (sticky) */
     header{
       position:sticky;top:0;z-index:50;
       background:rgba(255,255,255,.75);
       backdrop-filter:blur(10px);
-      border-bottom:1px solid var(--border)
+      border-bottom:1px solid var(--border);
     }
     .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-    .nav .logo{font-weight:800;letter-spacing:.2px}
-    .nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;align-items:center}
+    .nav{display:flex;align-items:center;justify-content:space-between;min-height:var(--nav-h);}
+    .logo{font-weight:800;letter-spacing:.2px}
+
+    /* nav links + hamburger */
+    .nav-right{display:flex;align-items:center;gap:20px}
+    .nav-links{display:flex;gap:24px;list-style:none;margin:0;padding:0;align-items:center}
+    .nav-links a{color:var(--t);font-weight:600}
+    .hamburger{
+      display:none;cursor:pointer;border:0;background:transparent;padding:8px;margin-left:8px;
+    }
+    .hamburger span,.hamburger::before,.hamburger::after{
+      display:block;width:24px;height:2px;background:#0f172a;border-radius:2px;transition:transform .2s ease,opacity .2s ease;
+    }
+    .hamburger::before,.hamburger::after{content:"";position:relative}
+    .hamburger::before{top:-6px}
+    .hamburger::after{top:6px}
+    .hamburger.active span{opacity:0}
+    .hamburger.active::before{transform:translateY(6px) rotate(45deg)}
+    .hamburger.active::after{transform:translateY(-6px) rotate(-45deg)}
+
     .btn{
       display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;
-      border:0;padding:10px 14px;border-radius:12px;font-weight:700;box-shadow:var(--shadow)
+      border:0;padding:10px 14px;border-radius:12px;font-weight:700;box-shadow:var(--shadow);
+      white-space:nowrap;
     }
     .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
 
     /* Sections */
     .section{padding:64px 0}
+
+    /* anchor offset for sticky header */
+    section[id]{scroll-margin-top:calc(var(--nav-h) + 16px);}
 
     /* Hero */
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
@@ -78,18 +109,16 @@
     .proj{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
     .proj .thumb{
       position:relative;overflow:hidden;border-bottom:1px solid var(--border);
-      /* consistent visual height via ratio */
       aspect-ratio:16/9;
       background:linear-gradient(180deg,#c7d2fe 0,#eff6ff 100%);
       display:flex;align-items:center;justify-content:center
     }
-    /* SHOW FULL IMAGE (no cropping) */
     .proj .thumb img{
       width:100%;
       height:100%;
-      object-fit:contain;     /* all of the image is visible */
-      padding:10px;           /* breathing room when letterboxed */
-      background:#f8fafc;     /* subtle backdrop behind transparent areas */
+      object-fit:contain;
+      padding:10px;
+      background:#f8fafc;
       border-radius:12px 12px 0 0;
       display:block;
     }
@@ -98,22 +127,38 @@
     .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .tag{padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#fff;color:#334155;font-size:.9rem}
 
-    /* Contact */
-    .contact a{margin-right:10px}
+    /* Generic responsive image helper */
+    .img-responsive{display:block;max-width:100%;height:auto;border-radius:14px;margin-top:10px;}
+    .media-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow)}
 
-    /* Responsive helpers for images */
-    .img-responsive{
-      display:block;max-width:100%;height:auto;border-radius:14px;margin-top:10px;
+    /* Contact card */
+    .contact-card{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+    .contact-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+    /* Fixed Footer */
+    .site-footer{
+      position:fixed;left:0;right:0;bottom:0;z-index:40;
+      background:var(--footer-bg);color:var(--footer-fg);
+      height:var(--footer-h);
+      display:flex;align-items:center;
+      border-top:1px solid rgba(255,255,255,.08);
     }
-
-    /* Tweak hero/about media boxes to avoid overflow */
-    .media-box{
-      background:#fff;border:1px solid var(--border);border-radius:var(--radius);
-      padding:12px;box-shadow:var(--shadow)
+    .site-footer .footer-inner{
+      max-width:var(--maxw);margin:0 auto;padding:0 24px;width:100%;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
     }
+    .footer-name{margin:0;color:#fff}
+    .social{display:flex;justify-content:center;gap:18px;margin:4px 0;}
+    .social a{
+      display:flex;align-items:center;justify-content:center;
+      width:48px;height:48px;border-radius:50%;
+      background:#1e293b;color:#fff;font-size:22px;
+      transition:all .3s ease; text-decoration:none;
+    }
+    .social a:hover{background:#3b82f6;transform:scale(1.15)}
+    .copyright{margin:0;font-size:.95rem;color:#cfe7f4}
 
-    footer{padding:26px 0;text-align:center;color:#64748b}
-
+    /* Responsive */
     @media (max-width:980px){
       .hero,.about{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
@@ -123,23 +168,45 @@
     @media (max-width:640px){
       .proj .thumb{ aspect-ratio:4/3; }
     }
+
+    /* Mobile nav: show hamburger, collapse links */
+    @media (max-width:860px){
+      .hamburger{display:block}
+      .nav-right{gap:8px}
+      .nav-links{
+        position:absolute;left:0;right:0;top:var(--nav-h);
+        background:#ffffff;border-bottom:1px solid var(--border);
+        display:none;flex-direction:column;align-items:flex-start;gap:0;padding:10px 16px;
+      }
+      .nav-links.open{display:flex}
+      .nav-links li{list-style:none;width:100%}
+      .nav-links a{display:block;padding:12px 6px}
+      .btn.ghost{margin-top:6px}
+    }
   </style>
 </head>
 <body>
+
+  <!-- HEADER -->
   <header>
     <div class="wrap nav">
       <div class="logo">Bhaskar</div>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a class="btn ghost" href="./BHASKAR_SINHA_DE_2025.pdf" download>📄 Resume</a></li>
-      </ul>
+      <div class="nav-right">
+        <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span></button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a class="btn ghost" href="./BHASKAR_SINHA_DE_2025.pdf" download>📄 Resume</a></li>
+        </ul>
+      </div>
     </div>
   </header>
 
+  <!-- MAIN -->
   <main class="wrap section">
+
     <!-- HERO -->
     <section class="hero" id="home">
       <div>
@@ -150,8 +217,6 @@
           <a class="btn ghost" href="mailto:bhaskarsinhauk@gmail.com">Email me</a>
         </div>
       </div>
-
-      <!-- Illustration / custom image (responsive) -->
       <div class="art media-box" aria-hidden="true">
         <img src="./1.png" alt="Hero illustration" class="img-responsive">
       </div>
@@ -167,8 +232,8 @@
         <div>
           <h3>I'm Bhaskar</h3>
           <p>I’m a Data Engineer passionate about building scalable data pipelines and AI-driven solutions from scratch. I enjoy turning raw data and ideas into impactful, real-world applications. My focus is on combining data engineering with AI/ML to deliver intelligent, reliable and meaningful insights.</p>
-          <p><b>Current:</b> Open to Data Engineer | Data Analyst | ML Engineer   </p>
-          <b>Location:</b> Glasgow, UK</p>
+          <p><b>Current:</b> Open to Data Engineer · Data Analyst · ML Engineer<br>
+             <b>Location:</b> Glasgow, UK</p>
         </div>
       </div>
     </section>
@@ -182,48 +247,17 @@
         <div class="skill"><img alt="Spark" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg"><span>Spark</span></div>
         <div class="skill"><img alt="AWS" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"><span>AWS</span></div>
         <div class="skill"><img alt="Azure" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg"><span>Azure</span></div>
-        <div class="skill">  <img alt="Databricks" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/databricks.svg"><span>Databricks</span></div>
+        <div class="skill"><img alt="Databricks" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/databricks.svg"><span>Databricks</span></div>
         <div class="skill"><img alt="Kafka" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg"><span>Kafka</span></div>
         <div class="skill"><img alt="Airflow" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apacheairflow/apacheairflow-original.svg"><span>Airflow</span></div>
         <div class="skill"><img alt="Docker" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"><span>Docker</span></div>
-       
 
-<div class="skill">
-  <img alt="Hadoop" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg">
-  <span>Hadoop</span>
-</div>
-
-<div class="skill">
-  <img alt="SQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
-  <span>SQL</span>
-</div>
-
-<div class="skill">
-  <img alt="Power BI" src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg">
-  <span>Power BI</span>
-</div>
-
-<div class="skill">
-  <img alt="Snowflake" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/snowflake.svg">
-  <span>Snowflake</span>
-</div>
-
-<div class="skill">
-  <img alt="Airflow" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apacheairflow/apacheairflow-original.svg">
-  <span>Airflow</span>
-</div>
-
-<div class="skill">
-  <img alt="Kubernetes" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-original.svg">
-  <span>Kubernetes</span>
-</div>
-
-<div class="skill">
-  <img alt="GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg">
-  <span>GitHub</span>
-</div>
-
-
+        <div class="skill"><img alt="Hadoop" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg"><span>Hadoop</span></div>
+        <div class="skill"><img alt="SQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"><span>SQL</span></div>
+        <div class="skill"><img alt="Power BI" src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"><span>Power BI</span></div>
+        <div class="skill"><img alt="Snowflake" src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Snowflake_Logo.svg"><span>Snowflake</span></div>
+        <div class="skill"><img alt="Kubernetes" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-original.svg"><span>Kubernetes</span></div>
+        <div class="skill"><img alt="GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"><span>GitHub</span></div>
       </div>
     </section>
 
@@ -233,12 +267,10 @@
       <div class="grid">
 
         <article class="proj">
-          <div class="thumb">
-            <img src="kafka.png" alt="Kafka Streaming">
-          </div>
+          <div class="thumb"><img src="kafka.png" alt="Kafka Streaming"></div>
           <div class="body">
-            <h3>•	Kafka-Based Stock Market Streaming and Analytics Pipeline</h3>
-            <p>Real-time stock market data pipeline using Kafka on AWS EC2, with storage in S3 and analytics via Glue & Athena.</p>
+            <h3>Kafka-Based Stock Market Streaming and Analytics Pipeline</h3>
+            <p>Real-time stock market data pipeline using Kafka on AWS EC2, with storage in S3 and analytics via Glue &amp; Athena.</p>
             <div class="tags">
               <span class="tag">Kafka</span><span class="tag">AWS Glue</span><span class="tag">AWS</span>
               <a class="btn" style="margin-left:auto" href="https://github.com/bhaskar4297/Kafka-Based-Stock-Market-Streaming-and-Analytics-Pipeline" target="_blank">Repo →</a>
@@ -247,12 +279,10 @@
         </article>
 
         <article class="proj">
-          <div class="thumb">
-            <img src="chatbot.png" alt="AI Agent Chatbot">
-          </div>
+          <div class="thumb"><img src="chatbot.png" alt="AI Agent Chatbot"></div>
           <div class="body">
             <h3>Personal AI Agent Chatbot with FastAPI</h3>
-            <p>Full-stack agentic chatbot (Streamlit + FastAPI) with Groq/DeepSeek models, LangGraph tools and Docker + CI/CD.</p>
+            <p>Full-stack agentic chatbot (Streamlit + FastAPI) with Groq/DeepSeek models, LangGraph tools, and Docker + CI/CD.</p>
             <div class="tags">
               <span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">Python</span><span class="tag">CI/CD</span>
               <a class="btn" style="margin-left:auto" href="https://github.com/bhaskar4297/Personal_AI_Agent_Chatbot_With_FASTAPI" target="_blank">Repo →</a>
@@ -261,9 +291,7 @@
         </article>
 
         <article class="proj">
-          <div class="thumb">
-            <img src="airflow.png" alt="Airflow Twitter ETL">
-          </div>
+          <div class="thumb"><img src="airflow.png" alt="Airflow Twitter ETL"></div>
           <div class="body">
             <h3>Airflow-Orchestrated Twitter ETL</h3>
             <p>Twitter → S3 → Spark → Redshift for analytics.</p>
@@ -275,26 +303,22 @@
         </article>
 
         <article class="proj">
-          <div class="thumb">
-            <img src="Geo.png" alt="Overpass Microservice">
-          </div>
+          <div class="thumb"><img src="Geo.png" alt="Overpass Microservice"></div>
           <div class="body">
             <h3>Overpass Microservice Architecture Design</h3>
             <p>OSM → Osmium → PostgreSQL/PostGIS → Django API → AWS Elastic Beanstalk.</p>
             <div class="tags">
-              <span class="tag">Django</span><span class="tag">Postgresql</span><span class="tag">ETL</span>
+              <span class="tag">Django</span><span class="tag">PostgreSQL</span><span class="tag">ETL</span>
               <a class="btn" style="margin-left:auto" href="https://github.com/bhaskar4297/Overpass-Microservice-Architecture-Design-Freelance-2024-" target="_blank">Repo →</a>
             </div>
           </div>
         </article>
 
         <article class="proj">
-          <div class="thumb">
-            <img src="spotify.png" alt="Spotify Classification">
-          </div>
+          <div class="thumb"><img src="spotify.png" alt="Spotify Classification"></div>
           <div class="body">
             <h3>Spotify Classification Problem</h3>
-            <p>Spotify Data → Feature Engineering → ML Models → Popularity & Genre Prediction.</p>
+            <p>Spotify Data → Feature Engineering → ML Models → Popularity &amp; Genre Prediction.</p>
             <div class="tags">
               <span class="tag">ML Models</span><span class="tag">Feature Engineering</span><span class="tag">LSTM</span>
               <a class="btn" style="margin-left:auto" href="https://github.com/bhaskar4297/Machine-Learning" target="_blank">Repo →</a>
@@ -303,14 +327,12 @@
         </article>
 
         <article class="proj">
-          <div class="thumb">
-            <img src="bitcoin.png" alt="Bitcoin Price Prediction">
-          </div>
+          <div class="thumb"><img src="bitcoin.png" alt="Bitcoin Price Prediction"></div>
           <div class="body">
             <h3>Ersan Duran (Predicting Bitcoin)</h3>
-            <p>Bitcoin Price Data → Time-Series Preprocessing → Regression Models → Price Prediction</p>
+            <p>Bitcoin Price Data → Time-Series Preprocessing → Regression Models → Price Prediction.</p>
             <div class="tags">
-              <span class="tag">ML Models</span><span class="tag">Regression Models</span><span class="tag">ETL</span>
+              <span class="tag">ML Models</span><span class="tag">Regression</span><span class="tag">ETL</span>
               <a class="btn" style="margin-left:auto" href="https://github.com/bhaskar4297/ML-Predicting-Bitcoin-Price" target="_blank">Repo →</a>
             </div>
           </div>
@@ -318,29 +340,70 @@
 
       </div>
     </section>
-<section id="contact" class="section">
-    <!-- ======= FOOTER ======= -->
-<footer class="site-footer">
-  <div class="footer-inner">
-    <h2 class="footer-name">Bhaskar</h2>
 
-    <div class="social">
-  <a href="mailto:bhaskarsinhauk@gmail.com" aria-label="Email">
-    <i class="fas fa-envelope"></i>
-  </a>
-  <a href="https://github.com/bhaskar4297" target="_blank" rel="noopener" aria-label="GitHub">
-    <i class="fab fa-github"></i>
-  </a>
-  <a href="https://www.linkedin.com/in/bhaskarsinha4297/" target="_blank" rel="noopener" aria-label="LinkedIn">
-    <i class="fab fa-linkedin"></i>
-  </a>
-</div>
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2 class="title">Contact</h2>
+      <div class="contact-card">
+        <p>Prefer email? <b><a href="mailto:bhaskarsinhauk@gmail.com">bhaskarsinhauk@gmail.com</a></b></p>
+        <div class="contact-actions">
+          <a class="btn" href="mailto:bhaskarsinhauk@gmail.com?subject=Hello%20Bhaskar">📧 Email</a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/bhaskarsinha4297/" target="_blank" rel="noopener">💼 LinkedIn</a>
+          <a class="btn ghost" href="https://github.com/bhaskar4297" target="_blank" rel="noopener">💻 GitHub</a>
+        </div>
+      </div>
+    </section>
 
+  </main>
 
-    <p class="copyright">© <span id="year-footer"></span> All rights reserved</p>
-  </div>
-</footer>
+  <!-- FIXED FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <h2 class="footer-name">Bhaskar</h2>
+      <div class="social">
+        <a href="mailto:bhaskarsinhauk@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://github.com/bhaskar4297" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/bhaskarsinha4297/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <p class="copyright">© <span id="year-footer"></span> All rights reserved</p>
+    </div>
+  </footer>
 
-<!-- ✅ Font Awesome Free CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script>
+    // Set current year in footer
+    document.getElementById('year-footer').textContent = new Date().getFullYear();
 
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+    // Close menu after clicking a link (mobile)
+    navLinks.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', ()=> {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // Smooth scroll with sticky-header offset (robust fallback)
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const id = link.getAttribute('href').slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (!target) return;
+        // Let native smooth scroll run if the link is in-page and no JS needed
+        // but ensure offset if required:
+        e.preventDefault();
+        const header = document.querySelector('header');
+        const offset = (header?.offsetHeight || 0) + 16;
+        const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
